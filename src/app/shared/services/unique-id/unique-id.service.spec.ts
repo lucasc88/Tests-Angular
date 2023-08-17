@@ -20,9 +20,21 @@ describe(UniqueIdService.name, () => {
   //UniqueIdService.prototype.generateUniqueIdWithPrefix.name is to use the
   //method name after someone refactor the name
   it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name} should generate id when called with prefix`, () => {
-    const service = new UniqueIdService();//create an Instance
+    const service = new UniqueIdService(); //create an Instance
     const id = service.generatedUniqueIdWithPrefix('app');
 
     expect(id.startsWith('app-')).toBeTrue();
+  });
+
+  it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name}
+    should not generate duplicate ID when called multiple times`, () => {
+      const service = new UniqueIdService(); //create an Instance
+      const ids = new Set();//it's an array that not accept duplicate items
+
+      for (let i = 0; i < 50; i++) {
+        ids.add(service.generatedUniqueIdWithPrefix('app'));
+      }
+      //since it's an array without duplicate IDs, it should be has 50 elements
+      expect(ids.size).toBe(50);
   });
 });
