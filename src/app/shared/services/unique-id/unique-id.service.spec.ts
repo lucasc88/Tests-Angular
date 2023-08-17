@@ -16,14 +16,16 @@ describe(UniqueIdService.name, () => {
     expect(service).toBeTruthy();
   });
 
-  //The base strucute: blablabla should blablabla when blablabla
+  //The base structure: blablabla should blablabla when blablabla
   //UniqueIdService.prototype.generateUniqueIdWithPrefix.name is to use the
   //method name after someone refactor the name
   it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name}
     should generate id when called with prefix`, () => {
     const id = service.generatedUniqueIdWithPrefix('app');
 
-    expect(id.startsWith('app-')).toBeTrue();
+    expect(id.startsWith('app-')).toBeTrue();//uses only primitive booleans
+    expect(id.startsWith('app-')).toBe(true);//comparing 2 objects
+    expect(id.startsWith('app-')).toBeTruthy();//it's the most generic, works wiht primitive and obj
   });
 
   it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name}
