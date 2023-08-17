@@ -5,11 +5,11 @@ import { UniqueIdService } from './unique-id.service';
 //describe contains the component to be tested (UniqueIdService)
 //UniqueIdService.name is to use the Class name after someone refactor the name
 describe(UniqueIdService.name, () => {
-  let service: UniqueIdService;
+  let service: UniqueIdService = null;
 
+  //before each test, this method will be called
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(UniqueIdService);
+    service = new UniqueIdService();//creates the instance
   });
 
   it('should be created', () => {
@@ -20,7 +20,6 @@ describe(UniqueIdService.name, () => {
   //UniqueIdService.prototype.generateUniqueIdWithPrefix.name is to use the
   //method name after someone refactor the name
   it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name} should generate id when called with prefix`, () => {
-    const service = new UniqueIdService(); //create an Instance
     const id = service.generatedUniqueIdWithPrefix('app');
 
     expect(id.startsWith('app-')).toBeTrue();
@@ -28,7 +27,6 @@ describe(UniqueIdService.name, () => {
 
   it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name}
     should not generate duplicate ID when called multiple times`, () => {
-      const service = new UniqueIdService(); //create an Instance
       const ids = new Set();//it's an array that not accept duplicate items
 
       for (let i = 0; i < 50; i++) {
@@ -40,10 +38,18 @@ describe(UniqueIdService.name, () => {
 
   it(`#${UniqueIdService.prototype.getNumberOfGeneratedIds.name}
     should return the number of generatedIds when called.`, () => {
-      const service = new UniqueIdService();
       const id1 = service.generatedUniqueIdWithPrefix('app');
       const id2 = service.generatedUniqueIdWithPrefix('app');
 
       expect(service.getNumberOfGeneratedIds()).toBe(2);
+  });
+
+  it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name}
+    should throw an Exception when empty`, () => {
+      const emptyValues = [null, undefined, ''];
+      emptyValues.forEach( element => {
+        //when testing an Exception, we need to write '() =>' inside the the expect
+        expect( () => service.generatedUniqueIdWithPrefix(element)).toThrow();
+      });
   });
 });
