@@ -23,6 +23,6 @@ describe(UniqueIdService.name, () => {
     const service = new UniqueIdService();//create an Instance
     const id = service.generatedUniqueIdWithPrefix('app');
 
-    expect(id).toContain('app-');
+    expect(id.startsWith('app-')).toBeTrue();
   });
 });
