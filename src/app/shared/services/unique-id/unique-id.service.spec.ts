@@ -37,4 +37,13 @@ describe(UniqueIdService.name, () => {
       //since it's an array without duplicate IDs, it should be has 50 elements
       expect(ids.size).toBe(50);
   });
+
+  it(`#${UniqueIdService.prototype.getNumberOfGeneratedIds.name}
+    should return the number of generatedIds when called.`, () => {
+      const service = new UniqueIdService();
+      const id1 = service.generatedUniqueIdWithPrefix('app');
+      const id2 = service.generatedUniqueIdWithPrefix('app');
+
+      expect(service.getNumberOfGeneratedIds()).toBe(2);
+  });
 });
