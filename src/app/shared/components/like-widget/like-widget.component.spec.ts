@@ -41,4 +41,17 @@ describe(LikeWidgetComponent.name, () => {
     fixture.detectChanges();
     expect(component.id).toBe(myId);
   });
+
+  //to test @Output properties
+  it(`#${LikeWidgetComponent.prototype.like.name} should trigger emission when called`, () => {
+    fixture.detectChanges();
+
+    //first we need to subscribe the method
+    component.liked.subscribe(() => {
+      expect(true).toBeTrue();
+    });
+
+    //after we can emit the output
+    component.like();
+  });
 });
