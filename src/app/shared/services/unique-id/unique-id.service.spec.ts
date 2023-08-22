@@ -48,6 +48,14 @@ describe(UniqueIdService.name, () => {
 
   it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name}
     should throw an Exception when empty`, () => {
+    const emptyValue = undefined;
+    //when testing an Exception, we need to write '() =>' inside the the expect
+    expect(() => service.generatedUniqueIdWithPrefix(emptyValue))
+      .toThrow();
+  });
+
+  it(`#${UniqueIdService.prototype.generatedUniqueIdWithPrefix.name}
+    should throw an Exception when empty`, () => {
     const emptyValues = [null, undefined, '', '0', '1'];
     emptyValues.forEach((element) => {
       //when testing an Exception, we need to write '() =>' inside the the expect
