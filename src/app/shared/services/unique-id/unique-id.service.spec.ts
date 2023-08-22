@@ -1,10 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-
 import { UniqueIdService } from './unique-id.service';
 
 //describe contains the component to be tested (UniqueIdService)
 //UniqueIdService.name is to use the Class name after someone refactor the name
 describe(UniqueIdService.name, () => {
+
   let service: UniqueIdService = null;
 
   //before each test, this method will be called

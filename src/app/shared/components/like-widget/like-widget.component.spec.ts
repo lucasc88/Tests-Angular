@@ -46,7 +46,7 @@ describe(LikeWidgetComponent.name, () => {
   it(`#${LikeWidgetComponent.prototype.like.name} should trigger emission when called`, () => {
     fixture.detectChanges();
 
-    //first we need to subscribe the method
+    //first we need to subscribe the method because they are Observables
     component.liked.subscribe(() => {
       expect(true).toBeTrue();
     });
@@ -54,4 +54,6 @@ describe(LikeWidgetComponent.name, () => {
     //after we can emit the output
     component.like();
   });
+
+
 });
