@@ -55,5 +55,18 @@ describe(LikeWidgetComponent.name, () => {
     component.like();
   });
 
+    //to test @Output properties in a simpler way using Spy
+    it(`#${LikeWidgetComponent.prototype.like.name} should trigger emission when called`, () => {
+      //spy will observe if the Output variable will emit
+      spyOn(component.liked, 'emit');
+
+      fixture.detectChanges();
+
+      //like() call the Output variable 'liked' to emit
+      component.like();
+
+      expect(component.liked.emit).toHaveBeenCalled();
+    });
+
 
 });
