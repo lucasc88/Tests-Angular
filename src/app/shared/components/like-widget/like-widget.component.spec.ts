@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LikeWidgetComponent } from './like-widget.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UniqueIdService } from '../../services/unique-id/unique-id.service';
 
 describe(LikeWidgetComponent.name, () => {
   let component: LikeWidgetComponent;
@@ -55,18 +56,32 @@ describe(LikeWidgetComponent.name, () => {
     component.like();
   });
 
-    //to test @Output properties in a simpler way using Spy
-    it(`#${LikeWidgetComponent.prototype.like.name} should trigger emission when called`, () => {
-      //spy will observe if the Output variable will emit
-      spyOn(component.liked, 'emit');
+  //to test @Output properties in a simpler way using Spy
+  it(`#${LikeWidgetComponent.prototype.like.name} should trigger emission when called`, () => {
+    //spy will observe if the Output variable will emit
+    spyOn(component.liked, 'emit');
 
-      fixture.detectChanges();
+    fixture.detectChanges();
 
-      //like() call the Output variable 'liked' to emit
-      component.like();
+    //like() call the Output variable 'liked' to emit
+    component.like();
 
-      expect(component.liked.emit).toHaveBeenCalled();
+    expect(component.liked.emit).toHaveBeenCalled();
+  });
+
+  // Test that the 'liked' event is emitted when the like button is clicked.
+  it('should emit "liked" event when like button is clicked', () => {
+    // Arrange
+    const component = new LikeWidgetComponent(new UniqueIdService());
+    let eventEmitted = false;
+    component.liked.subscribe(() => {
+      eventEmitted = true;
     });
 
+    // Act
+    component.like();
 
+    // Assert
+    expect(eventEmitted).toBe(true);
+  });
 });
