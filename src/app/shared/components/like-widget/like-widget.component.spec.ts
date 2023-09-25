@@ -26,6 +26,10 @@ describe(LikeWidgetComponent.name, () => {
 
   it('should create component', () => {
     //detectChanges() triggers the angular life cicle (onInit(), onChanges()...)
+    //It's not a good idea put fixture.detectChanges() inside the beforeEach()
+    //because we are not be able to populate the component properties inside our
+    //test. First, initilize the properties to test and after the
+    //fixture.detectChanges() will run properly the onInit(), onChanges(), etc...
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
@@ -36,10 +40,11 @@ describe(LikeWidgetComponent.name, () => {
   });
 
   it('Should NOT generate ID when id input property is present', () => {
+    //first, initilize the properties
     const myId = 'ID-123';
     component.id = myId;
-    //onInit() will check that exist a value and it will not be changed
-    fixture.detectChanges();
+    //After the properties have been initialized, call the .detectChanges();
+    fixture.detectChanges();//onInit() will check that exists a value and it will not be changed
     expect(component.id).toBe(myId);
   });
 
